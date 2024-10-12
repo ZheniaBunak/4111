@@ -101,7 +101,7 @@ person1 = Person('Иван', random.choice(professions), random.choice(dealershi
 person2 = Person('Сергей', random.choice(professions), random.choice(dealership.cars))
 
 
-print("Информация о людях в начале:")
+print("Информация о людях:")
 person1.show_info()
 person2.show_info()
 
