@@ -1,5 +1,6 @@
 import random
 
+
 class Car:
     def __init__(self, model, price):
         self.model = model
@@ -7,6 +8,7 @@ class Car:
 
     def __str__(self):
         return f'{self.model} за {self.price} грн.'
+
 
 class Person:
     def __init__(self, name, profession, dream_car):
@@ -16,11 +18,13 @@ class Person:
         self.happiness = random.randint(30, 70)
         self.profession = profession
         self.dream_car = dream_car
+
     def show_info(self):
-        print(f'Меня зовут {self.name}, моя проффесия {self.profession}, я имею {self.money} грн., '
+        print(f'Меня зовут {self.name}, моя профессия {self.profession}, я имею {self.money} грн., '
               f'мой уровень счастья: {self.happiness}/100, Машина мечты: {self.dream_car}')
 
-    def buy_car(self, car, dealership):
+    def buy_car(self, dealership):
+        car = self.dream_car
         initial_gap = car.price - self.money
         while self.money < car.price:
             remaining_gap = car.price - self.money
@@ -72,9 +76,11 @@ class CarDealership:
             print('Автосалон пуст, машин нет.')
 
     def sell_car(self, car):
-        self.cars.remove(car)
-        print(f'Машина {car.model} продана.')
-
+        if car in self.cars:
+            self.cars.remove(car)
+            print(f'Машина {car.model} продана.')
+        else:
+            print(f'Ошибка: {car.model} не найдена в автосалоне.')
 
 
 professions = ['Программист', 'Учитель', 'Инженер', 'Врач']
@@ -91,8 +97,8 @@ for car in cars:
     dealership.add_car(car)
 
 
-person1 = Person('Иван', random.choice(professions), random.choice(cars).model)
-person2 = Person('Сергей', random.choice(professions), random.choice(cars).model)
+person1 = Person('Иван', random.choice(professions), random.choice(dealership.cars))
+person2 = Person('Сергей', random.choice(professions), random.choice(dealership.cars))
 
 
 print("Информация о людях в начале:")
@@ -103,5 +109,5 @@ person2.show_info()
 dealership.show_cars()
 
 
-person1.buy_car(random.choice(cars), dealership)
-person2.buy_car(random.choice(cars), dealership)
+person1.buy_car(dealership)
+person2.buy_car(dealership)
