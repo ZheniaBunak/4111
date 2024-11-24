@@ -1,24 +1,40 @@
+
 class MyException(Exception):
     def __str__(self):
-        return 'Це мій власний виняток! 😊'
+        return 'Це мій вийняток!)😊'
 
-def convert_to_int(value: str):
-    try:
-        number = int(value)
-        return number
-    except ValueError:
-        raise MyException
+
+def raiser(n: int):
+    match n:
+        case 1:
+            raise ValueError
+        case 2:
+            raise ZeroDivisionError
+        case 3:
+            raise IndexError('Це мій власний IndexError')
+        case 4:
+            raise KeyError
+        case 5:
+            raise KeyboardInterrupt
+        case 6:
+            raise MyException
+
 
 try:
-    user_input = input("Введіть число: ")
 
-    result = convert_to_int(user_input)
 
-except MyException as exc:
-    print(f'Помилка! {exc}')
+    n1 = int(input('Введіть число 1:'))
+    n2 = int(input('Введіть число 2:'))
+
+    result = n1 / n2
+
+except ZeroDivisionError:
+    print('Ти не можшь ділити на  0')
+except ValueError:
+    print('Ти вписав не число')
 except Exception as exc:
-    print(f'Сталася помилка: {exc}')
+  print(f'Сталася помилка: {exc}')
 else:
-    print(f'Ви ввели число: {result}')
+    print(result)
 finally:
-    print('Програма завершила роботу.')
+    print('finally')
